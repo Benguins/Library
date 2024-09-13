@@ -2,19 +2,24 @@
 let myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
 
 if(!myLibrary){
-  myLibrary = [];
+  myLibrary = [
+    {
+    title: 'book1',
+    author: 'book1',
+    haveRead: true
+    },
+    {
+      title: 'book2',
+      author: 'book2',
+      haveRead: false
+      }
+];
 };
  
-
-function Book(title, author, pageNumber, haveRead){ 
+function Book(title, author, haveRead){ 
   this.title = title;
   this.author = author;
-  this.pageNumber = pageNumber;
   this.haveRead = haveRead;
-  this.info = function(){
-    const info = `${this.title}, ${this.author}, ${this.pageNumber}, ${this.haveRead}`;
-    return info;
-  }
 }
 
 const container = document.querySelector('.js-library-books-container');
@@ -38,13 +43,32 @@ function generateHTML(){
     <div class="book-entry-container js-book-entry-container-${entry.title}" data-book-title="${entry.title}">
     <p>${entry.title}</p>
     <p>${entry.author}</p>
-    <p>${entry.pageNumber}</p>
-    <p>${entry.haveRead}</p>
+    <input type="checkbox" class="js-checkbox" data-book-title="${entry.title}" data-checked="${entry.haveRead}">
     <button class="library-button js-library-button-delete" data-book-title="${entry.title}">Delete</button>
     </div>
     `
     container.innerHTML = libraryHTML;
   });
+
+  document.querySelectorAll('.js-checkbox').forEach((checkBox) => {
+
+    const checked = checkBox.dataset.checked;
+    const book = checkBox.dataset.bookTitle;
+    let matchingBook;
+
+    myLibrary.forEach((entry) => {
+        if(entry.title === book){
+          matchingBook = entry;
+        }
+        if(matchingBook){
+          if(checked === 'true'){
+            checkBox.setAttribute("checked", "checked");
+          }
+        }
+      });
+  });
+  
+  
     document.querySelectorAll('.js-library-button-delete').forEach((button) => {
     button.addEventListener('click', () => {
       const book = button.dataset.bookTitle;
@@ -69,16 +93,18 @@ function generateHTML(){
 button.addEventListener('click', () => {
   let title = document.querySelector('.js-title-input').value;
   let author = document.querySelector('.js-author-input').value;
-  let pageNumber = document.querySelector('.js-page-number-input').value;
-  let haveRead = document.querySelector('.js-have-read-input').value;
+  let haveRead = document.querySelector('.js-have-read-input');
 
-  if(title && author && pageNumber && haveRead){
-    myLibrary.push({
-      title: title,
-      author: author,
-      pageNumber: pageNumber,
-      haveRead: haveRead
-    });
+  if(haveRead.checked){
+    haveRead = true;
+  } else {
+    haveRead = false;
+  }
+  console.log(myLibrary);
+
+  if(title && author){
+    let newBook = new Book(title,author,haveRead);
+    myLibrary.push(newBook);
     saveToStorage();
     generateHTML();
   }
@@ -87,6 +113,7 @@ button.addEventListener('click', () => {
 function saveToStorage(){
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }
+
 
 
 
