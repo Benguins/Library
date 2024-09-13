@@ -1,0 +1,78 @@
+body{
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: black;
+}
+h1{
+  font-size: 60px;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.library-button{
+  padding: 20px;
+  width: 150px;
+  font-size: 15px;
+}
+.container-main{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+.js-library-books-container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.js-library-books-container p {
+  font-size: 20px;
+}
+.book-entry-container{
+  color: white;
+  border: 3px solid white;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1;
+  padding-top: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto;
+  background-color: black;
+}
+.modal-container-main {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  margin: auto;
+  padding: 20px;
+  width: 500px;
+  gap: 20px;
+}
+.modal-container-main div p {
+  color: white;
+  font-size: 20px;
+}
+.modal-container-main div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.modal-container-main div input{
+  width: 50%;
+}
+.modal-container{
+  display: flex;
+  justify-content: center;
+}

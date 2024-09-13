@@ -4,15 +4,15 @@ let myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
 if(!myLibrary){
   myLibrary = [
     {
-    title: 'book1',
-    author: 'book1',
+    title: 'The Return of the King',
+    author: 'J. R. R. Tolkien',
     haveRead: true
     },
     {
-      title: 'book2',
-      author: 'book2',
+      title: 'A Game of Thrones',
+      author: 'George R.R Marton',
       haveRead: false
-      }
+    }
 ];
 };
  
@@ -29,7 +29,8 @@ let libraryHTML = '';
 function clearStorage(){
   localStorage.clear();
 }
-document.querySelector('.js-library-button-add-another-book').addEventListener('click', () => {
+
+document.querySelector('.js-library-button-delete').addEventListener('click', () => {
   clearStorage();
   generateHTML();
 });
@@ -43,7 +44,7 @@ function generateHTML(){
     <div class="book-entry-container js-book-entry-container-${entry.title}" data-book-title="${entry.title}">
     <p>${entry.title}</p>
     <p>${entry.author}</p>
-    <input type="checkbox" class="js-checkbox" data-book-title="${entry.title}" data-checked="${entry.haveRead}">
+    <p>Have you read it? <input type="checkbox" class="js-checkbox" data-book-title="${entry.title}" data-checked="${entry.haveRead}"></p>
     <button class="library-button js-library-button-delete" data-book-title="${entry.title}">Delete</button>
     </div>
     `
@@ -84,6 +85,7 @@ function generateHTML(){
           myLibrary.splice(index, 1);
           const containerOfBook = document.querySelector(`.js-book-entry-container-${entry.title}`);
           containerOfBook.remove();
+          saveToStorage();
         }
       });
     });
@@ -100,19 +102,23 @@ button.addEventListener('click', () => {
   } else {
     haveRead = false;
   }
-  console.log(myLibrary);
 
   if(title && author){
     let newBook = new Book(title,author,haveRead);
     myLibrary.push(newBook);
     saveToStorage();
-    generateHTML();
+    location.reload();
   }
 });
 
 function saveToStorage(){
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }
+
+const modal = document.querySelector('.js-modal');
+document.querySelector('.js-library-button-add-another-book').addEventListener('click', () => {
+  modal.style.display = "block";
+});
 
 
 

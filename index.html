@@ -8,15 +8,23 @@
 </head>
 <body>
     <div class="container-main">
-      <p>Book title</p><input placeholder = "Title" class="js-title-input">
-      <p>Book author</p><input placeholder = "Book author" class="js-author-input">
-      <p>Have you read this book?</p><input type="checkbox" class="js-have-read-input">
+      <h1>Welcome to the library</h1>
+      <div class="modal js-modal">
+        <div class="modal-container-main js-modal-container-main">
+          <div><p>Book title</p><input placeholder = "Title" class="js-title-input"></div>
+          <div><p>Book author</p><input placeholder = "Book author" class="js-author-input"></div>
+          <div><p>Have you read this book?</p><input type="checkbox" class="js-have-read-input"></div>
 
-      <button class="library-button js-library-button">Send</button>
-      <button class="library-button js-library-button-add-another-book">Add another book</button>
+          <button class="library-button js-library-button">Send</button>
+        </div>
+      </div>
+      <button class="library-button js-library-button-add-another-book">Add a book</button>
 
       <div class="library-books-container js-library-books-container">
 
+      </div>
+      <div>
+        <button class="library-button js-library-button-delete">Delete all</button>
       </div>
     </div>
   <script src="/index.js"></script>
