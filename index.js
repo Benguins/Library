@@ -1,4 +1,3 @@
-
 let myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
 
 if(!myLibrary){
@@ -13,7 +12,7 @@ if(!myLibrary){
       author: 'George R.R Marton',
       haveRead: false
     }
-];
+  ];
 };
  
 function Book(title, author, haveRead){ 
@@ -42,10 +41,13 @@ function generateHTML(){
   myLibrary.forEach((entry) => {
     libraryHTML += `
     <div class="book-entry-container js-book-entry-container-${entry.title}" data-book-title="${entry.title}">
-    <p>${entry.title}</p>
-    <p>${entry.author}</p>
-    <p>Have you read it? <input type="checkbox" class="js-checkbox" data-book-title="${entry.title}" data-checked="${entry.haveRead}"></p>
-    <button class="library-button js-library-button-delete" data-book-title="${entry.title}">Delete</button>
+      <p>${entry.title}</p>
+      <p>${entry.author}</p>
+      <p>Have you read it? <input type="checkbox" class="js-checkbox" data-book-title="${entry.title}" data-checked="${entry.haveRead}"></p>
+      <div class="book-entry-button-container">
+        <button class="library-button js-library-button-delete" data-book-title="${entry.title}">Delete</button>
+        <button class="library-button js-library-button-status" data-book-title="${entry.title}">Change Read Status</button>
+      </div>
     </div>
     `
     container.innerHTML = libraryHTML;
@@ -105,6 +107,7 @@ button.addEventListener('click', () => {
 
   if(title && author){
     let newBook = new Book(title,author,haveRead);
+    console.log(newBook);
     myLibrary.push(newBook);
     saveToStorage();
     location.reload();
@@ -120,7 +123,29 @@ document.querySelector('.js-library-button-add-another-book').addEventListener('
   modal.style.display = "block";
 });
 
-
+document.querySelectorAll('.js-library-button-status').forEach((button) => {
+  button.addEventListener('click', () => {
+    const bookTitle = button.dataset.bookTitle;
+    let matching;
+    //console.log(bookTitle);
+    myLibrary.forEach((entry) => {
+      if(entry.title === bookTitle){
+        matching = entry;
+      }
+    });
+    //console.log(matching);
+    if(matching.haveRead === true){
+      matching.haveRead = false;
+      saveToStorage();
+      location.reload();
+    } else {
+      matching.haveRead = true;
+      saveToStorage();
+      location.reload();
+    }
+    //console.log(matching);
+  })
+});
 
 
 
