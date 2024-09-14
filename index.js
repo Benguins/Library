@@ -29,9 +29,9 @@ function clearStorage(){
   localStorage.clear();
 }
 
-document.querySelector('.js-library-button-delete').addEventListener('click', () => {
+document.querySelector('.js-library-button-delete-all').addEventListener('click', () => {
   clearStorage();
-  generateHTML();
+  location.reload();
 });
 
 generateHTML();

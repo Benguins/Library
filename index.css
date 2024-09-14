@@ -16,6 +16,9 @@ h1{
   font-weight: 600;
   cursor: pointer;
 }
+.library-button-delete-all{
+  margin-bottom: 100px;
+}
 .container-main{
   display: flex;
   flex-direction: column;
