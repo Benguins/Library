@@ -127,13 +127,11 @@ document.querySelectorAll('.js-library-button-status').forEach((button) => {
   button.addEventListener('click', () => {
     const bookTitle = button.dataset.bookTitle;
     let matching;
-    //console.log(bookTitle);
     myLibrary.forEach((entry) => {
       if(entry.title === bookTitle){
         matching = entry;
       }
     });
-    //console.log(matching);
     if(matching.haveRead === true){
       matching.haveRead = false;
       saveToStorage();
@@ -143,8 +141,11 @@ document.querySelectorAll('.js-library-button-status').forEach((button) => {
       saveToStorage();
       location.reload();
     }
-    //console.log(matching);
   })
+});
+
+document.querySelector('.js-library-button-go-back').addEventListener('click', () => {
+  modal.style.display = "none";
 });
 
 
